@@ -1,0 +1,245 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Case2DBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="ChatHistory">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="SenderId" Type="Int32" Nullable="false" />
+    <Property Name="RecipientId" Type="Int32" Nullable="false" />
+    <Property Name="Text" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Date" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="Users" Relationship="Self.FK_Chat_User" FromRole="ChatHistory" ToRole="Users" />
+    <NavigationProperty Name="Users1" Relationship="Self.FK_Chat_User1" FromRole="ChatHistory" ToRole="Users" />
+  </EntityType>
+  <EntityType Name="Class">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Year" Type="Int32" Nullable="false" />
+    <Property Name="Symbol" Type="String" MaxLength="1" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Year_of_admission" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Group" Relationship="Self.FK_Group_Class" FromRole="Class" ToRole="Group" />
+    <NavigationProperty Name="TimeTable" Relationship="Self.FK_TimeTable_Class" FromRole="Class" ToRole="TimeTable" />
+  </EntityType>
+  <EntityType Name="Group">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ClassId" Type="Int32" Nullable="false" />
+    <Property Name="StudentId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Class" Relationship="Self.FK_Group_Class" FromRole="Group" ToRole="Class" />
+    <NavigationProperty Name="Users" Relationship="Self.FK_Group_User" FromRole="Group" ToRole="Users" />
+  </EntityType>
+  <EntityType Name="Lessons">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="TeacherId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Users" Relationship="Self.FK_Lessons_User" FromRole="Lessons" ToRole="Users" />
+    <NavigationProperty Name="Marks" Relationship="Self.FK_Marks_Lessons" FromRole="Lessons" ToRole="Marks" />
+    <NavigationProperty Name="TimeTable" Relationship="Self.FK_TimeTable_Lessons" FromRole="Lessons" ToRole="TimeTable" />
+  </EntityType>
+  <EntityType Name="Marks">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="StudentId" Type="Int32" Nullable="false" />
+    <Property Name="LessonId" Type="Int32" Nullable="false" />
+    <Property Name="Mark" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Comment" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Date" Type="DateTime" Nullable="false" Precision="0" />
+    <NavigationProperty Name="Lessons" Relationship="Self.FK_Marks_Lessons" FromRole="Marks" ToRole="Lessons" />
+    <NavigationProperty Name="Users" Relationship="Self.FK_Marks_User" FromRole="Marks" ToRole="Users" />
+  </EntityType>
+  <EntityType Name="TimeTable">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="LessonId" Type="Int32" Nullable="false" />
+    <Property Name="Count" Type="Int32" Nullable="false" />
+    <Property Name="ClassId" Type="Int32" Nullable="false" />
+    <Property Name="DayOfTheWeek" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Start" Type="Time" Nullable="false" Precision="7" />
+    <Property Name="End" Type="Time" Nullable="false" Precision="7" />
+    <NavigationProperty Name="Class" Relationship="Self.FK_TimeTable_Class" FromRole="TimeTable" ToRole="Class" />
+    <NavigationProperty Name="Lessons" Relationship="Self.FK_TimeTable_Lessons" FromRole="TimeTable" ToRole="Lessons" />
+  </EntityType>
+  <EntityType Name="Users">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Login" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Password" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Position" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Adress" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Phone" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Birthday" Type="DateTime" Nullable="false" Precision="0" />
+    <NavigationProperty Name="ChatHistory" Relationship="Self.FK_Chat_User" FromRole="Users" ToRole="ChatHistory" />
+    <NavigationProperty Name="ChatHistory1" Relationship="Self.FK_Chat_User1" FromRole="Users" ToRole="ChatHistory" />
+    <NavigationProperty Name="Group" Relationship="Self.FK_Group_User" FromRole="Users" ToRole="Group" />
+    <NavigationProperty Name="Lessons" Relationship="Self.FK_Lessons_User" FromRole="Users" ToRole="Lessons" />
+    <NavigationProperty Name="Marks" Relationship="Self.FK_Marks_User" FromRole="Users" ToRole="Marks" />
+  </EntityType>
+  <Association Name="FK_Chat_User">
+    <End Role="Users" Type="Self.Users" Multiplicity="1" />
+    <End Role="ChatHistory" Type="Self.ChatHistory" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ChatHistory">
+        <PropertyRef Name="SenderId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Chat_User1">
+    <End Role="Users" Type="Self.Users" Multiplicity="1" />
+    <End Role="ChatHistory" Type="Self.ChatHistory" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ChatHistory">
+        <PropertyRef Name="RecipientId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Group_Class">
+    <End Role="Class" Type="Self.Class" Multiplicity="1" />
+    <End Role="Group" Type="Self.Group" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Class">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Group">
+        <PropertyRef Name="ClassId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TimeTable_Class">
+    <End Role="Class" Type="Self.Class" Multiplicity="1" />
+    <End Role="TimeTable" Type="Self.TimeTable" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Class">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="TimeTable">
+        <PropertyRef Name="ClassId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Group_User">
+    <End Role="Users" Type="Self.Users" Multiplicity="1" />
+    <End Role="Group" Type="Self.Group" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Group">
+        <PropertyRef Name="StudentId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Lessons_User">
+    <End Role="Users" Type="Self.Users" Multiplicity="1" />
+    <End Role="Lessons" Type="Self.Lessons" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Lessons">
+        <PropertyRef Name="TeacherId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Marks_Lessons">
+    <End Role="Lessons" Type="Self.Lessons" Multiplicity="1" />
+    <End Role="Marks" Type="Self.Marks" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Lessons">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Marks">
+        <PropertyRef Name="LessonId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TimeTable_Lessons">
+    <End Role="Lessons" Type="Self.Lessons" Multiplicity="1" />
+    <End Role="TimeTable" Type="Self.TimeTable" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Lessons">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="TimeTable">
+        <PropertyRef Name="LessonId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Marks_User">
+    <End Role="Users" Type="Self.Users" Multiplicity="1" />
+    <End Role="Marks" Type="Self.Marks" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Marks">
+        <PropertyRef Name="StudentId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="Case2DBEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="ChatHistory" EntityType="Self.ChatHistory" />
+    <EntitySet Name="Class" EntityType="Self.Class" />
+    <EntitySet Name="Group" EntityType="Self.Group" />
+    <EntitySet Name="Lessons" EntityType="Self.Lessons" />
+    <EntitySet Name="Marks" EntityType="Self.Marks" />
+    <EntitySet Name="TimeTable" EntityType="Self.TimeTable" />
+    <EntitySet Name="Users" EntityType="Self.Users" />
+    <AssociationSet Name="FK_Chat_User" Association="Self.FK_Chat_User">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="ChatHistory" EntitySet="ChatHistory" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Chat_User1" Association="Self.FK_Chat_User1">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="ChatHistory" EntitySet="ChatHistory" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Group_Class" Association="Self.FK_Group_Class">
+      <End Role="Class" EntitySet="Class" />
+      <End Role="Group" EntitySet="Group" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TimeTable_Class" Association="Self.FK_TimeTable_Class">
+      <End Role="Class" EntitySet="Class" />
+      <End Role="TimeTable" EntitySet="TimeTable" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Group_User" Association="Self.FK_Group_User">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="Group" EntitySet="Group" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Lessons_User" Association="Self.FK_Lessons_User">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="Lessons" EntitySet="Lessons" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Marks_Lessons" Association="Self.FK_Marks_Lessons">
+      <End Role="Lessons" EntitySet="Lessons" />
+      <End Role="Marks" EntitySet="Marks" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TimeTable_Lessons" Association="Self.FK_TimeTable_Lessons">
+      <End Role="Lessons" EntitySet="Lessons" />
+      <End Role="TimeTable" EntitySet="TimeTable" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Marks_User" Association="Self.FK_Marks_User">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="Marks" EntitySet="Marks" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

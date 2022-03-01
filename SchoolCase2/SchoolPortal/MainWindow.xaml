@@ -1,0 +1,21 @@
+﻿<Window x:Class="SchoolPortal.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SchoolPortal"
+        mc:Ignorable="d"
+        Title="SchoolCase2" Height="680" Width="1024">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="107*"/>
+            <ColumnDefinition Width="200"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="38*"/>
+            <RowDefinition Height="611*"/>
+        </Grid.RowDefinitions>
+        <Frame NavigationUIVisibility="Hidden" ContentRendered="frame_ContentRendered" Grid.Row="1" Name="frame" Margin="0,1,0,0" Navigated="frame_Navigated" Background="Bisque" Grid.ColumnSpan="2"></Frame>
+        <Button Name="Back" Click="Button_Click" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="18" Width="130" Height="30" Grid.Column="1" Margin="40,4,30,4" Background="BurlyWood">Назад</Button>
+    </Grid>
+</Window>
